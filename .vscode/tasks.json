@@ -1,0 +1,22 @@
+{
+    "tasks": [
+        {
+            "type": "vs64",
+            "action": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "label": "build project"
+        },
+        {
+            "type": "vs64",
+            "action": "rebuild",
+            "problemMatcher": [
+                "$kick"
+            ],
+            "group": "build",
+            "label": "vs64: rebuild"
+        }
+    ]
+}
