@@ -1,0 +1,18 @@
+.const BRCOLOR = $d020
+.const BGCOLOR = $d021
+BasicUpstart2(main)
+* = $01000
+
+main:
+dec BRCOLOR
+dec BGCOLOR
+jmp main
+mainz:
+lda BRCOLOR
+sbc #1
+sta BRCOLOR
+lda BGCOLOR
+sbc #1
+sta BGCOLOR
+jmp main
+rts

@@ -1,14 +1,38 @@
 .const SCREEN = $0400
+
+.macro push_all() {
+pha 
+tya
+pha
+txa
+pha
+}
+
+.macro pop_all() {
+    pla
+    txa
+    pla
+    tay
+    pla
+}
 BasicUpstart2(main)
 * = $01000
 
 main:
+lda #1
+ldx #2
+ldy #3
 jsr cls
+sta SCREEN
+stx SCREEN +1
+sty SCREEN +2
 rts
 
 cls:
-lda #3
+push_all()
+lda #32
 ldx #0
+ldy #66
 
 cls_loop:
 sta SCREEN, X
@@ -17,24 +41,6 @@ sta SCREEN + $0200, X
 sta SCREEN + $02e8, X
 dex
 bne cls_loop
+
+pop_all();
 rts
-
-hellotext:
-    .encoding "screencode_mixed"
-    .text "hello, world szo, szo!"
-    .byte $0
-    .const ofs = 0
-
-mainz:
-    ldy #0
-
-hello:
-    lda hellotext,y
-    beq !loop+
-    sta $400+ofs,y
-    lda #1
-    sta $d800+ofs,y
-    iny
-    jmp hello
-!loop:
-    rts
