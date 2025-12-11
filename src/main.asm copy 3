@@ -9,15 +9,14 @@ pha
 }
 
 .macro pop_all() {
-pla
-tax
-pla
-tay
-pla
+    pla
+    txa
+    pla
+    tay
+    pla
 }
-
-* = $01000
 BasicUpstart2(main)
+* = $01000
 
 main:
 lda #1
@@ -32,7 +31,7 @@ rts
 cls:
 push_all()
 lda #32
-ldx #0
+ldx #1
 ldy #66
 
 cls_loop:
@@ -43,5 +42,5 @@ sta SCREEN + $02e8, X
 dex
 bne cls_loop
 
-pop_all()
+pop_all();
 rts
